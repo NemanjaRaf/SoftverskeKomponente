@@ -41,4 +41,14 @@ public class Soba {
         }
         rekviziti.add(rekvizit);
     }
+
+    @Override
+    public String toString() {
+        return "Soba{" +
+                "naziv = '" + naziv + '\'' +
+                ", kapacitet = " + kapacitet +
+                ", brojRacunara = " + brojRacunara +
+                ", rekviziti = " + rekviziti +
+                '}';
+    }
 }

@@ -47,7 +47,7 @@ public class Raspored {
 
         removeTermin(termin);
 
-        Termin check = checkIfTerminIsAvailable(new Termin(termin.getSoba(), termin.getProfesor(), newStart, newEnd, termin.isReccuring()));
+        Termin check = checkIfTerminIsAvailable(new Termin(termin.getSoba(), termin.getProfesor(),termin.getTipPredavanja(), newStart, newEnd, termin.getGrupe(), termin.isReccuring()));
         if (check != null) {
             addTermin(termin, true);
             throw new IllegalArgumentException("Termin nije slobodan!");
@@ -133,7 +133,7 @@ public class Raspored {
 
             while (!queryStart.plusMinutes(trajanje).isAfter(queryEnd)) {
                 System.out.println("Trying soba: " + availableSoba.getNaziv()); // Logging the room
-                Termin potentialTermin = new Termin(availableSoba, queryBuilder.getProfesor(), queryStart, queryStart.plusMinutes(trajanje), isReccuring);
+                Termin potentialTermin = new Termin(availableSoba, queryBuilder.getProfesor(),queryBuilder.getTipPredavanja(), queryStart, queryStart.plusMinutes(trajanje), "4343" ,isReccuring);
 
                 Termin conflict = checkIfTerminIsAvailable(potentialTermin);
                 if (conflict == null) {

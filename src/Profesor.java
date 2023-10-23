@@ -22,4 +22,13 @@ public class Profesor {
     public Predmet getPredmet() {
         return predmet;
     }
+
+    @Override
+    public String toString() {
+        return "Profesor{" +
+                "ime = '" + ime + '\'' +
+                ", prezime = '" + prezime + '\'' +
+                ", predmet = " + predmet +
+                '}';
+    }
 }

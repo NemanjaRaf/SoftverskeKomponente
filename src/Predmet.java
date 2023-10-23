@@ -8,4 +8,11 @@ public class Predmet {
     public String getNaziv() {
         return naziv;
     }
+
+    @Override
+    public String toString() {
+        return "Predmet{" +
+                "naziv = '" + naziv + '\'' +
+                '}';
+    }
 }
