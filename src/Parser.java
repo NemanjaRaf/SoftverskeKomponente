@@ -8,7 +8,7 @@ public class Parser {
         for(int i = 1; i < csv.getCsvLines().size(); i++){
             CsvLine l = csv.getCsvLines().get(i);
 
-            Soba soba = new Soba(l.getUcionica(), 20, 20);
+            DynamicSoba soba = new DynamicSoba(l.getUcionica(), 20, 20);
             raspored.addSoba(soba);
 
             Predmet predmet = new Predmet(l.getPredmet());
@@ -44,14 +44,7 @@ public class Parser {
             LocalDateTime pocetak = LocalDateTime.parse(startDateTimeStr);
             LocalDateTime kraj = LocalDateTime.parse(endDateTimeStr);
 
-            TipPredavanja tipPredavanja = null;
-            switch (l.getTip()){
-                case "P": tipPredavanja = TipPredavanja.PREDAVANJE;break;
-                case "V": tipPredavanja = TipPredavanja.VEZBE;break;
-                case "D": tipPredavanja = TipPredavanja.DEMONSTRACIJE;break;
-            }
-
-            Termin termin = new Termin(soba, profesor, tipPredavanja, pocetak, kraj, grupe,true);
+            Termin termin = new Termin(soba, pocetak, kraj, true);
             //System.out.println(termin);
             raspored.addTermin(termin, false);
         }

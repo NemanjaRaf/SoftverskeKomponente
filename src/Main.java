@@ -1,5 +1,4 @@
 import csv.Csv;
-import csv.CsvLine;
 import csv.CsvReader;
 
 import java.time.LocalDateTime;
@@ -9,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         Raspored raspored = new Raspored();
 //
-//        Soba s1 = new Soba("RAF1", 20, 20);
+//        Soba s1 = new DynamicSoba("RAF1", 20, 20);
 //        Soba s2 = new Soba("RAF2", 20, 20);
 //        Soba s3 = new Soba("RAF3", 20, 20);
 //        s3.addRekvizit(Rekviziti.PROJEKTOR);
@@ -51,12 +50,12 @@ public class Main {
         csv = csvReader.readCsv("/data/csv.csv", csv);
         raspored = Parser.CsvToRaspored(raspored, csv);
         QueryBuilder query = new QueryBuilder()
-                .setSoba(new Soba("Raf02 (u)", 20, 20))
+//                .setSoba(new DynamicSoba("Raf02 (u)", 20, 20))
                 .setKapacitet(20)
-                .setPocetak(LocalDateTime.now().plusDays(7).minusMinutes(30))
+                .setPocetak(LocalDateTime.now().plusDays(7).minusMinutes(300))
                 .setKraj(LocalDateTime.now().plusDays(7).plusHours(5))
                 .setTrajanje(120)
-                .setReccuring(true);
+                .setReccuring(false);
         System.out.println("=================================================");
         Termin t = raspored.getFirstAvailable(query);
         if (t != null) {
@@ -64,8 +63,9 @@ public class Main {
         } else {
             System.out.println("Nema slobodnih termina!");
         }
-//        for(Termin t: raspored.getTermini()){
-//            System.out.println(t.getSoba().getNaziv());
+//        for(Termin tt: raspored.getTermini()){
+//            if (tt.getSoba().getNaziv().equalsIgnoreCase("Raf02 (u)"))
+//                System.out.println(tt.toString());
 //        }
 
 

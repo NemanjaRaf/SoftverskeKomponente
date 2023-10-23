@@ -47,7 +47,7 @@ public class Raspored {
 
         removeTermin(termin);
 
-        Termin check = checkIfTerminIsAvailable(new Termin(termin.getSoba(), termin.getProfesor(),termin.getTipPredavanja(), newStart, newEnd, termin.getGrupe(), termin.isReccuring()));
+        Termin check = checkIfTerminIsAvailable(new Termin(termin.getSoba(), newStart, newEnd, termin.isReccuring()));
         if (check != null) {
             addTermin(termin, true);
             throw new IllegalArgumentException("Termin nije slobodan!");
@@ -100,23 +100,14 @@ public class Raspored {
     }
 
     private boolean isSameRoomOrProfessor(Termin termin1, Termin termin2) {
-        System.out.println("Checking if same room or professor"); // Logging the action
 
         // Check if rooms are the same
         if (termin1.getSoba() != null) {
-            System.out.println(termin1.getSoba().getNaziv() + " : " + termin2.getSoba().getNaziv()); // Logging the room
             if (termin1.getSoba().getNaziv().equals(termin2.getSoba().getNaziv())) {
                 return true;
             }
         }
 
-        // Check if professors are the same
-        if (termin1.getProfesor() != null) {
-            return termin1.getProfesor().getIme().equals(termin2.getProfesor().getIme()) &&
-                    termin1.getProfesor().getPrezime().equals(termin2.getProfesor().getPrezime());
-        }
-
-        System.out.println(termin1.toString());
         return false;
     }
 
@@ -130,12 +121,8 @@ public class Raspored {
 
         // Iterate through each available room
         for (Soba availableSoba : sobe) {
-            System.out.println("Checking room: " + availableSoba.getNaziv()); // Logging the room
 
-            System.out.println("Rekviziti: " + availableSoba.getRekviziti().toString()); // Logging the room
             if (!availableSoba.getRekviziti().containsAll(queryBuilder.getRekviziti())) {
-
-                System.out.println("Nema rekvizite"); // Logging the room
                 continue;
             }
             if (availableSoba.getKapacitet() < queryBuilder.getKapacitet()) {
@@ -152,7 +139,7 @@ public class Raspored {
             while (!queryStart.plusMinutes(trajanje).isAfter(queryEnd)) {
 
                 System.out.println("Trying soba: " + availableSoba.getNaziv()); // Logging the room
-                Termin potentialTermin = new Termin(availableSoba, queryBuilder.getProfesor(),queryBuilder.getTipPredavanja(), queryStart, queryStart.plusMinutes(trajanje), "4343" ,isReccuring);
+                Termin potentialTermin = new Termin(availableSoba, queryStart, queryStart.plusMinutes(trajanje), isReccuring);
 
                 Termin conflict = checkIfTerminIsAvailable(potentialTermin);
                 if (conflict == null) {

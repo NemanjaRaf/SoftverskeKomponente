@@ -1,15 +1,13 @@
 import java.time.LocalDateTime;
-import java.time.Period;
+import java.util.HashMap;
 
 public class Termin {
     private Soba soba;
-    private Profesor profesor;
-    private TipPredavanja tipPredavanja;
+    private HashMap<String, String> additionalData;
     private LocalDateTime pocetak, kraj;
-    private String grupe;
     private boolean reccuring;
 
-    public Termin(Soba soba, Profesor profesor,TipPredavanja tipPredavanja, LocalDateTime pocetak, LocalDateTime kraj,String grupe, boolean reccuring) {
+    public Termin(Soba soba, LocalDateTime pocetak, LocalDateTime kraj, boolean reccuring) {
         if (pocetak.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Ne moze se zakazati termin u proslosti!");
         }
@@ -17,28 +15,22 @@ public class Termin {
             throw new IllegalArgumentException("Pocetak termina ne moze biti posle kraja termina!");
         }
         this.soba = soba;
-        this.profesor = profesor;
-        this.tipPredavanja = tipPredavanja;
         this.pocetak = pocetak;
         this.kraj = kraj;
-        this.grupe = grupe;
         this.reccuring = reccuring;
+        this.additionalData = new HashMap<>();
     }
 
-    public TipPredavanja getTipPredavanja() {
-        return tipPredavanja;
+    public HashMap<String, String> getAdditionalData() {
+        return additionalData;
     }
 
-    public void setTipPredavanja(TipPredavanja tipPredavanja) {
-        this.tipPredavanja = tipPredavanja;
+    public void addAdditionalData(String key, String value) {
+        additionalData.put(key, value);
     }
 
     public Soba getSoba() {
         return soba;
-    }
-
-    public Profesor getProfesor() {
-        return profesor;
     }
 
     public LocalDateTime getPocetak() {
@@ -61,21 +53,10 @@ public class Termin {
         this.kraj = kraj;
     }
 
-    public String getGrupe() {
-        return grupe;
-    }
-
-    public void setGrupe(String grupe) {
-        this.grupe = grupe;
-    }
-
     @Override
     public String toString() {
         return "Termin{" +
                 "soba = " + soba +
-                ", profesor = " + profesor +
-                ", tip predavanja = " + tipPredavanja +
-                ", grupe = " + grupe +
                 ", pocetak = " + pocetak +
                 ", kraj = " + kraj +
                 ", reccuring = " + reccuring +

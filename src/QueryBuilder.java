@@ -1,8 +1,19 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class QueryBuilder {
+    public List<String> getRekviziti() {
+        return rekviziti;
+    }
+
+    private int brojRacunara, kapacitet, trajanje;
+    private LocalDateTime pocetak, kraj;
+    private Soba soba;
+    private List<String> rekviziti;
+    private HashMap<String, String> additionalData;
+    private boolean reccuring;
     public int getBrojRacunara() {
         return brojRacunara;
     }
@@ -23,41 +34,25 @@ public class QueryBuilder {
         return kraj;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
-    }
-
     public Soba getSoba() {
         return soba;
     }
 
-    public List<Rekviziti> getRekviziti() {
-        return rekviziti;
+    public HashMap<String, String> getAdditionalData() {
+        return additionalData;
     }
 
-    private int brojRacunara, kapacitet, trajanje;
-    private LocalDateTime pocetak, kraj;
-    private Profesor profesor;
-    private TipPredavanja tipPredavanja;
-    private Soba soba;
-    private List<Rekviziti> rekviziti;
-    private boolean reccuring;
+    public void addAdditionalData(String key, String value) {
+        additionalData.put(key, value);
+    }
 
     public QueryBuilder() {
         rekviziti = new ArrayList<>();
+        additionalData = new HashMap<>();
     }
 
     public QueryBuilder setReccuring(boolean reccuring) {
         this.reccuring = reccuring;
-        return this;
-    }
-
-    public TipPredavanja getTipPredavanja() {
-        return tipPredavanja;
-    }
-
-    public QueryBuilder setTipPredavanja(TipPredavanja tipPredavanja) {
-        this.tipPredavanja = tipPredavanja;
         return this;
     }
 
@@ -95,12 +90,7 @@ public class QueryBuilder {
         return this;
     }
 
-    public QueryBuilder setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-        return this;
-    }
-
-    public QueryBuilder addRekvizit(Rekviziti rekvizit) {
+    public QueryBuilder addRekvizit(String rekvizit) {
         rekviziti.add(rekvizit);
         return this;
     }
@@ -113,8 +103,6 @@ public class QueryBuilder {
                 ", trajanje = " + trajanje +
                 ", pocetak = " + pocetak +
                 ", kraj = " + kraj +
-                ", profesor = " + profesor +
-                ", tipPredavanja = " + tipPredavanja +
                 ", soba = " + soba +
                 ", rekviziti = " + rekviziti +
                 ", reccuring = " + reccuring +

@@ -1,63 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Soba {
-    private String naziv;
-    private int kapacitet, brojRacunara;
+public interface Soba {
 
-    private List<Rekviziti> rekviziti;
+    public  String getNaziv();
 
-    public Soba(String naziv, int kapacitet, int brojRacunara) {
-        this.naziv = naziv;
-        this.kapacitet = kapacitet;
-        this.brojRacunara = brojRacunara;
+    public int getKapacitet();
 
-        rekviziti = new ArrayList<>();
-    }
+    public int getBrojRacunara();
 
+    public  List<String> getRekviziti();
 
-    /**
-     * Constructs an empty list with an initial capacity of ten.
-     */
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public int getKapacitet() {
-        return kapacitet;
-    }
-
-    public int getBrojRacunara() {
-        return brojRacunara;
-    }
-
-    public List<Rekviziti> getRekviziti() {
-        return rekviziti;
-    }
-
-    public void addRekvizit(Rekviziti rekvizit) {
-        if (rekviziti == null) {
-            rekviziti = new ArrayList<>();
-        }
-        rekviziti.add(rekvizit);
-    }
+    public  void addRekvizit(String rekvizit);
 
     @Override
-    public String toString() {
-        return "Soba{" +
-                "naziv = '" + naziv + '\'' +
-                ", kapacitet = " + kapacitet +
-                ", brojRacunara = " + brojRacunara +
-                ", rekviziti = " + rekviziti +
-                '}';
-    }
+    public String toString();
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Soba) {
-            Soba soba = (Soba) obj;
-            return soba.getNaziv().equals(naziv);
-        }
-        return false;
-    }
+    public boolean equals(Object obj);
 }
