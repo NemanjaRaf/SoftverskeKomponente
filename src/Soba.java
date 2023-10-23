@@ -51,4 +51,13 @@ public class Soba {
                 ", rekviziti = " + rekviziti +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Soba) {
+            Soba soba = (Soba) obj;
+            return soba.getNaziv().equals(naziv);
+        }
+        return false;
+    }
 }

@@ -15,7 +15,7 @@ public class Raspored {
 
     public void addSoba(Soba soba) {
         if (sobe.contains(soba)) {
-            throw new IllegalArgumentException("Soba vec postoji!");
+            return;
         }
         sobe.add(soba);
     }
@@ -100,9 +100,24 @@ public class Raspored {
     }
 
     private boolean isSameRoomOrProfessor(Termin termin1, Termin termin2) {
-        return termin1.getSoba().getNaziv().equals(termin2.getSoba().getNaziv()) ||
-                (termin1.getProfesor().getIme().equals(termin2.getProfesor().getIme()) &&
-                        termin1.getProfesor().getPrezime().equals(termin2.getProfesor().getPrezime()));
+        System.out.println("Checking if same room or professor"); // Logging the action
+
+        // Check if rooms are the same
+        if (termin1.getSoba() != null) {
+            System.out.println(termin1.getSoba().getNaziv() + " : " + termin2.getSoba().getNaziv()); // Logging the room
+            if (termin1.getSoba().getNaziv().equals(termin2.getSoba().getNaziv())) {
+                return true;
+            }
+        }
+
+        // Check if professors are the same
+        if (termin1.getProfesor() != null) {
+            return termin1.getProfesor().getIme().equals(termin2.getProfesor().getIme()) &&
+                    termin1.getProfesor().getPrezime().equals(termin2.getProfesor().getPrezime());
+        }
+
+        System.out.println(termin1.toString());
+        return false;
     }
 
 
@@ -129,9 +144,13 @@ public class Raspored {
             if (availableSoba.getBrojRacunara() < queryBuilder.getBrojRacunara()) {
                 continue;
             }
+            if (queryBuilder.getSoba() != null && !queryBuilder.getSoba().getNaziv().equals(availableSoba.getNaziv())) {
+                continue;
+            }
             queryStart = queryBuilder.getPocetak(); // Reset the start time for each room
 
             while (!queryStart.plusMinutes(trajanje).isAfter(queryEnd)) {
+
                 System.out.println("Trying soba: " + availableSoba.getNaziv()); // Logging the room
                 Termin potentialTermin = new Termin(availableSoba, queryBuilder.getProfesor(),queryBuilder.getTipPredavanja(), queryStart, queryStart.plusMinutes(trajanje), "4343" ,isReccuring);
 

@@ -3,12 +3,13 @@ import csv.CsvLine;
 
 import java.time.LocalDateTime;
 
-public interface Parser {
+public class Parser {
     public static Raspored CsvToRaspored(Raspored raspored, Csv csv){
         for(int i = 1; i < csv.getCsvLines().size(); i++){
             CsvLine l = csv.getCsvLines().get(i);
 
             Soba soba = new Soba(l.getUcionica(), 20, 20);
+            raspored.addSoba(soba);
 
             Predmet predmet = new Predmet(l.getPredmet());
 

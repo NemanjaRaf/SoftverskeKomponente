@@ -7,12 +7,9 @@ public class CsvReader {
     public Csv readCsv(String fileName, Csv csv) {
         InputStream csvStream = CsvReader.class.getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(csvStream));
-        String csvFile = fileName;
         String line = "";
         String cvsSplitBy = "\",";
-
         try  {
-
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
 
@@ -48,12 +45,7 @@ public class CsvReader {
 
                 }
                 // Add code here to create and use Java objects
-
-
-
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
